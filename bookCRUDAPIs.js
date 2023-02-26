@@ -35,7 +35,7 @@ const books = [
   },
 ];
 
-let validateUser = (book) => {
+let validateBook = (book) => {
   const schema = Joi.object({
     title: Joi.string().min(5).required(),
     author: Joi.string().min(5).required(),
@@ -54,7 +54,7 @@ app.get("/books", (req, res) => {
 });
 
 app.post("/books", (req, res) => {
-  const { error } = validateUser(req.body);
+  const { error } = validateBook(req.body);
 
   if (error) {
     return res.status(400).send(error.details[0].message);
@@ -84,7 +84,7 @@ app.put("/books/:id", (req, res) => {
     return res.status(404).send("Book does not exist!");
   }
 
-  const { error } = validateUser(req.body);
+  const { error } = validateBook(req.body);
 
   if (error) {
     return res.status(400).send(error.details[0].message);
